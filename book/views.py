@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView,DeleteView,UpdateView
-from .models import Book
+from .models import Book, Review
 
 class ListBookView(ListView):
     template_name='book/book_list.html'
@@ -30,3 +30,8 @@ class UpdateBookView(UpdateView):
 def index_view(request):
     object_list=Book.objects.order_by('category')
     return render(request, 'book/index.html',{'object_list': object_list})
+
+class CreateReviewView(CreateView):
+    model=Review
+    fields=('book','title','text','rate')
+    template_name='book/review_form.html'
