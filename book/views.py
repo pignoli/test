@@ -40,3 +40,8 @@ class CreateReviewView(CreateView):
         context=super().get_context_data(**kwargs)
         context['book']=Book.objects.get(pk=self.kwargs['book_id'])
         return context
+    def form_valid(self,form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse('detail-book',kwargs={'pk':self.object.book.id})
