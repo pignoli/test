@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView,DeleteView,UpdateView
 from .models import Book, Review
 
@@ -13,7 +13,7 @@ class DetailBookView(DetailView):
 class CreateBookView(CreateView):
     template_name='book/book_create.html'
     model=Book
-    fields=('title','text','category')
+    fields=('title','text','category','thumbnail')
     success_url=reverse_lazy('list-book')
 
 class DeleteBookView(DeleteView):
@@ -24,16 +24,15 @@ class DeleteBookView(DeleteView):
 class UpdateBookView(UpdateView):
     template_name='book/book_update.html'
     model=Book
-    fields=('title','text','category')
+    fields=('title','text','category','thmbnail','thumbnail')
     success_url=reverse_lazy('list-book')
 
 def index_view(request):
     object_list=Book.objects.order_by('category')
     return render(request, 'book/index.html',{'object_list': object_list})
-
 class CreateReviewView(CreateView):
     model=Review
-    fields=('book','title','text','rate')
+    fields=('book','title','text','rate','thumbnail')
     template_name='book/review_form.html'
 
     def get_context_data(self, **kwargs):
@@ -44,4 +43,4 @@ class CreateReviewView(CreateView):
         form.instance.user=self.request.user
         return super().form_valid(form)
     def get_success_url(self):
-        return reverse('detail-book',kwargs={'pk':self.object.book.id})
+        return reverse('detail-book',kwargs={'pk': self.object.book.id})

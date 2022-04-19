@@ -1,4 +1,6 @@
+#from django.conf import settings
 from django.urls import path
+#from django.conf.urls.static import static
 from . import views
 
 urlpatterns=[
@@ -10,4 +12,6 @@ urlpatterns=[
     path('book/<int:pk>/update',views.UpdateBookView.as_view(),name='update-book'),
     path('book/<int:book_id>/review/',views.CreateReviewView.as_view(),name='review'),
 ]
+
+#urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_URL)
 
