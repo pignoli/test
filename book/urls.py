@@ -13,5 +13,5 @@ urlpatterns=[
     path('book/<int:book_id>/review/',views.CreateReviewView.as_view(),name='review'),
 ]
 
-#urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_URL)
+
 
